@@ -9,7 +9,12 @@ class WallFollow : public rclcpp::Node {
 public:
     WallFollow() : Node("wall_follow_node")
     {
-        // TODO: create ROS subscribers and publishers
+        // TODO: create ROS subscribers and publishers;
+        scan_sub_ = this->create_subscription<sensor_msgs::msg::LaserScan>(
+            lidarscan_topic, 10, std::bind(&Safety::scan_callback, this, std::placeholders::_1));\
+        
+        drive_pub_ = this->create_publisher<ackermann_msgs::msg::AckermannDriveStamped>(
+            drive_topic, 10);
     }
 
 private:
@@ -26,6 +31,8 @@ private:
     std::string lidarscan_topic = "/scan";
     std::string drive_topic = "/drive";
     /// TODO: create ROS subscribers and publishers
+    rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr scan_sub_;
+    rclcpp::Publisher<ackermann_msgs::msg::AckermannDriveStamped>::SharedPtr drive_pub_;
 
     double get_range(float* range_data, double angle)
     {
