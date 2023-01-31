@@ -10,11 +10,11 @@ public:
     WallFollow() : Node("wall_follow_node")
     {
         // TODO: create ROS subscribers and publishers;
-        this->declare_parameter("kp", 14.0);
-        this->declare_parameter("kd", 0.09);
-        this->declare_parameter("ki", 2.0);
-        this->declare_parameter("theta", 45.0*M_PI/180.0);
-        this->declare_parameter("L", 0.1);
+        this->declare_parameter("kp", 6.0);
+        this->declare_parameter("kd", 0.02);
+        this->declare_parameter("ki", 0.0);
+        this->declare_parameter("theta", 60.0*M_PI/180.0);
+        this->declare_parameter("L", 0.4);
         this->declare_parameter("dist_to_wall", 0.5);
 
         scan_sub_ = this->create_subscription<sensor_msgs::msg::LaserScan>(
