@@ -10,12 +10,12 @@ public:
     WallFollow() : Node("wall_follow_node")
     {
         // TODO: create ROS subscribers and publishers;
-        this->declare_parameter("kp", 6.0);
-        this->declare_parameter("kd", 0.02);
+        this->declare_parameter("kp", 6.1);
+        this->declare_parameter("kd", 0.021);
         this->declare_parameter("ki", 0.0);
-        this->declare_parameter("theta", 60.0*M_PI/180.0);
-        this->declare_parameter("L", 0.4);
-        this->declare_parameter("dist_to_wall", 0.5);
+        this->declare_parameter("theta", 45.0*M_PI/180.0);
+        this->declare_parameter("L", 1.0);
+        this->declare_parameter("dist_to_wall", 1.2);
 
         scan_sub_ = this->create_subscription<sensor_msgs::msg::LaserScan>(
             lidarscan_topic, 10, std::bind(&WallFollow::scan_callback, this, std::placeholders::_1));\
