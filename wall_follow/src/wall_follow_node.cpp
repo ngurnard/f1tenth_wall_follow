@@ -16,6 +16,9 @@ public:
         this->declare_parameter("theta", 45.0*M_PI/180.0);
         this->declare_parameter("L", 1.0);
         this->declare_parameter("dist_to_wall", 1.2);
+        this->declare_parameter("speed_fast", 4.5);
+        this->declare_parameter("speed_medium", 3.0);
+        this->declare_parameter("speed_slow", 1.0);
 
         scan_sub_ = this->create_subscription<sensor_msgs::msg::LaserScan>(
             lidarscan_topic, 10, std::bind(&WallFollow::scan_callback, this, std::placeholders::_1));\
@@ -117,11 +120,11 @@ private:
         // TODO: fill in drive message and publish
         drive_msg.drive.steering_angle = steering_angle;
         if (steering_angle < 10*M_PI/180 && steering_angle > -10*M_PI/180)
-            drive_msg.drive.speed = 1.5;
+            drive_msg.drive.speed = this->get_parameter("speed_fast").get_parameter_value.get<double>();
         else if (steering_angle < 20*M_PI/180 && steering_angle > -20*M_PI/180)
-            drive_msg.drive.speed = 1.0;
+            drive_msg.drive.speed = this->get_parameter("speed_medium").get_parameter_value.get<double>();
         else
-            drive_msg.drive.speed = 0.5;
+            drive_msg.drive.speed = this->get_parameter("speed_slow").get_parameter_value.get<double>();
 
         drive_pub_->publish(drive_msg);
 
