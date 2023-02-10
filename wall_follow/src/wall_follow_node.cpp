@@ -120,11 +120,11 @@ private:
         // TODO: fill in drive message and publish
         drive_msg.drive.steering_angle = steering_angle;
         if (steering_angle < 10*M_PI/180 && steering_angle > -10*M_PI/180)
-            drive_msg.drive.speed = this->get_parameter("speed_fast").get_parameter_value.get<double>();
+            drive_msg.drive.speed = this->get_parameter("speed_fast").get_parameter_value().get<double>();
         else if (steering_angle < 20*M_PI/180 && steering_angle > -20*M_PI/180)
-            drive_msg.drive.speed = this->get_parameter("speed_medium").get_parameter_value.get<double>();
+            drive_msg.drive.speed = this->get_parameter("speed_medium").get_parameter_value().get<double>();
         else
-            drive_msg.drive.speed = this->get_parameter("speed_slow").get_parameter_value.get<double>();
+            drive_msg.drive.speed = this->get_parameter("speed_slow").get_parameter_value().get<double>();
 
         drive_pub_->publish(drive_msg);
 
